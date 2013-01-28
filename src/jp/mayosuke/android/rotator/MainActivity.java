@@ -1,6 +1,8 @@
 package jp.mayosuke.android.rotator;
 
 import android.os.Bundle;
+import android.provider.Settings;
+import android.provider.Settings.SettingNotFoundException;
 import android.app.Activity;
 import android.content.res.Configuration;
 import android.util.Log;
@@ -15,6 +17,15 @@ public class MainActivity extends Activity {
         Log.i(TAG, "onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        try {
+            final int accelerometerRotation = android.provider.Settings.System.getInt(getContentResolver(), Settings.System.ACCELEROMETER_ROTATION);
+            Log.i(TAG, "accelerometerRotation=" + accelerometerRotation);
+            final int userRotation = android.provider.Settings.System.getInt(getContentResolver(), Settings.System.USER_ROTATION);
+            Log.i(TAG, "userRotation=" + userRotation);
+        } catch (SettingNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

@@ -1,8 +1,12 @@
 package jp.mayosuke.android.rotator;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Configuration;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.provider.Settings.SettingNotFoundException;
@@ -52,6 +56,10 @@ public class MainActivity extends Activity {
         super.onResume();
 
         mOrientationEventListener.enable();
+
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(Intent.ACTION_CONFIGURATION_CHANGED);
+        registerReceiver(mConfigChangeReceiver, filter);
     }
 
     @Override
@@ -60,6 +68,7 @@ public class MainActivity extends Activity {
         super.onPause();
 
         mOrientationEventListener.disable();
+        unregisterReceiver(mConfigChangeReceiver);
     }
 
     @Override
@@ -91,7 +100,7 @@ public class MainActivity extends Activity {
     private static class MyOrientationEventListener extends OrientationEventListener {
 
         public MyOrientationEventListener(Context context) {
-            super(context);
+            super(context, SensorManager.SENSOR_DELAY_UI);
         }
 
         @Override
@@ -99,4 +108,16 @@ public class MainActivity extends Activity {
             Log.i(TAG, "onOrientationChanged:orientation=" + orientation);
         }
     }
+
+    private final BroadcastReceiver mConfigChangeReceiver = new BroadcastReceiver() {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Log.i(TAG, "mConfigChangeReceiver.onReceive:intent=" + intent);
+            if (!intent.getAction().equals(Intent.ACTION_CONFIGURATION_CHANGED)) {
+                Log.w(TAG, "  Received unexpected intent.");
+                return;
+            }
+        }
+    };
 }

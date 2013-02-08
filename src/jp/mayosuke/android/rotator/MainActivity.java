@@ -1,17 +1,21 @@
 package jp.mayosuke.android.rotator;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.provider.Settings.SettingNotFoundException;
 import android.util.Log;
 import android.view.Menu;
+import android.view.OrientationEventListener;
 import android.widget.ToggleButton;
 
 public class MainActivity extends Activity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
+
+    private OrientationEventListener mOrientationEventListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +36,8 @@ public class MainActivity extends Activity {
         } catch (SettingNotFoundException e) {
             e.printStackTrace();
         }
+
+        mOrientationEventListener = new MyOrientationEventListener(this);
     }
 
     @Override
@@ -44,12 +50,16 @@ public class MainActivity extends Activity {
     protected void onResume() {
         Log.i(TAG, "onResume");
         super.onResume();
+
+        mOrientationEventListener.enable();
     }
 
     @Override
     protected void onPause() {
         Log.i(TAG, "onPause");
         super.onPause();
+
+        mOrientationEventListener.disable();
     }
 
     @Override
@@ -62,6 +72,8 @@ public class MainActivity extends Activity {
     protected void onDestroy() {
         Log.i(TAG, "onDestroy");
         super.onDestroy();
+
+        mOrientationEventListener = null;
     }
 
     @Override
@@ -74,5 +86,17 @@ public class MainActivity extends Activity {
     public void onConfigurationChanged(Configuration newConfig) {
         Log.i(TAG, "onConfigurationChanged:newConfig=" + newConfig);
         super.onConfigurationChanged(newConfig);
+    }
+
+    private static class MyOrientationEventListener extends OrientationEventListener {
+
+        public MyOrientationEventListener(Context context) {
+            super(context);
+        }
+
+        @Override
+        public void onOrientationChanged(int orientation) {
+            Log.i(TAG, "onOrientationChanged:orientation=" + orientation);
+        }
     }
 }

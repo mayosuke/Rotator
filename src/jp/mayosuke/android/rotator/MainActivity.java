@@ -42,6 +42,16 @@ public class MainActivity extends Activity {
         }
 
         mOrientationEventListener = new MyOrientationEventListener(this);
+        mConfigChangeReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                Log.i(TAG, "mConfigChangeReceiver.onReceive:intent=" + intent);
+                if (!intent.getAction().equals(Intent.ACTION_CONFIGURATION_CHANGED)) {
+                    Log.w(TAG, "  Received unexpected intent.");
+                    return;
+                }
+            }
+        };
     }
 
     @Override
@@ -83,6 +93,7 @@ public class MainActivity extends Activity {
         super.onDestroy();
 
         mOrientationEventListener = null;
+        mConfigChangeReceiver = null;
     }
 
     @Override
@@ -109,15 +120,5 @@ public class MainActivity extends Activity {
         }
     }
 
-    private final BroadcastReceiver mConfigChangeReceiver = new BroadcastReceiver() {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            Log.i(TAG, "mConfigChangeReceiver.onReceive:intent=" + intent);
-            if (!intent.getAction().equals(Intent.ACTION_CONFIGURATION_CHANGED)) {
-                Log.w(TAG, "  Received unexpected intent.");
-                return;
-            }
-        }
-    };
+    private BroadcastReceiver mConfigChangeReceiver;
 }

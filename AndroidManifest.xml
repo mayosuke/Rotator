@@ -21,15 +21,7 @@
             </intent-filter>
         </activity>
 
-        <receiver 
-            android:name=".RotationObserver"
-            android:label="Rotator">
-            <intent-filter>
-                <action android:name="android.intent.action.CONFIGURATION_CHANGED" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </receiver>
 
-        </application>
+    </application>
 
 </manifest>

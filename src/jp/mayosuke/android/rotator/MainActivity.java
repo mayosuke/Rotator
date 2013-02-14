@@ -41,7 +41,7 @@ public class MainActivity extends Activity {
             e.printStackTrace();
         }
 
-        mOrientationEventListener = new MyOrientationEventListener(this);
+//        mOrientationEventListener = new MyOrientationEventListener(this);
         mConfigChangeReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
@@ -65,7 +65,7 @@ public class MainActivity extends Activity {
         Log.i(TAG, "onResume");
         super.onResume();
 
-        mOrientationEventListener.enable();
+//        mOrientationEventListener.enable();
 
         IntentFilter filter = new IntentFilter();
         filter.addAction(Intent.ACTION_CONFIGURATION_CHANGED);
@@ -77,7 +77,7 @@ public class MainActivity extends Activity {
         Log.i(TAG, "onPause");
         super.onPause();
 
-        mOrientationEventListener.disable();
+//        mOrientationEventListener.disable();
         unregisterReceiver(mConfigChangeReceiver);
     }
 

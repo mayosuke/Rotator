@@ -15,7 +15,7 @@ public class RotationObserver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.i(TAG, "onReceive(intent=" + intent + ")");
+        Log.i(TAG, "onReceive:intent=" + intent);
     }
 
 }

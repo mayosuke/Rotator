@@ -13,10 +13,11 @@ import android.provider.Settings.SettingNotFoundException;
 import android.util.Log;
 import android.view.Menu;
 import android.view.OrientationEventListener;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ToggleButton;
 
 public class MainActivity extends Activity {
-
     private static final String TAG = MainActivity.class.getSimpleName();
 
     private OrientationEventListener mOrientationEventListener;
@@ -52,6 +53,22 @@ public class MainActivity extends Activity {
                 }
             }
         };
+
+        findViewById(R.id.button_start_service).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i(TAG, "onClick:id=button_start_service");
+                startService(new Intent(MainActivity.this, RotationObserveService.class));
+            }
+        });
+
+        findViewById(R.id.button_stop_service).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i(TAG, "onClick:id=button_stop_service");
+                stopService(new Intent(MainActivity.this, RotationObserveService.class));
+            }
+        });
     }
 
     @Override

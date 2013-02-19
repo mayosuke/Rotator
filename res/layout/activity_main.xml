@@ -7,15 +7,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
     
-        <Button
-            android:id="@+id/button1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/toggleButton1"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="38dp"
-            android:text="Open Auto-rotation preference settings" />
-    
         <TextView
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
@@ -32,12 +23,38 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/textView1"
             android:layout_centerHorizontal="true" />
-    
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/toggleButton1"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="38dp"
+            android:text="Open Auto-rotation preference settings" />
+
+        <Button
+            android:id="@+id/button_start_service"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="29dp"
+            android:layout_below="@+id/button1"
+            android:text="Start service" />
+
+        <Button
+            android:id="@+id/button_stop_service"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="29dp"
+            android:layout_toRightOf="@+id/button_start_service"
+            android:layout_alignBottom="@+id/button_start_service"
+            android:text="Stop service" />
+
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/button1"
+            android:layout_below="@+id/button_start_service"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="16dp"
             android:text=""

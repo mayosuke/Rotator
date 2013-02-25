@@ -8,9 +8,9 @@ import android.util.Log;
 public class RotationObserveService extends IntentService {
     private static final String TAG = RotationObserveService.class.getSimpleName();
 
-    public RotationObserveService(String name) {
-        super(name);
-        Log.i(TAG, "RotationObserveService:name=" + name);
+    public RotationObserveService() {
+        super(TAG);
+        Log.i(TAG, "");
     }
 
 
